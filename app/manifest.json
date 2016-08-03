@@ -1,18 +1,20 @@
-{
+﻿{
   "manifest_version": 2,
 
-  "name": "One-click Kittens",
-  "description": "This extension demonstrates a browser action with kittens.",
-  "version": "1.0",
+  "name": "JK日語小鍵盤",
+  "description": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文",
+  "version": "1.1",
 
   "permissions": [
-    "debugger",
-    "storage",
-    "tabs"
+
   ],
   "browser_action": {
     "default_icon": "img/icon.png",
     "default_popup": "popup.html"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "icons": {
+    "16": "img/icon-128.png",
+    "48": "img/icon-128.png",
+    "128": "img/icon-128.png"
+  }
 }

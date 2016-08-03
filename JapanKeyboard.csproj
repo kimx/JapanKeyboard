@@ -48,11 +48,16 @@
     <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="app\bootstrap-3.3.7\js\bootstrap.js" />
     <Content Include="app\bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="app\img\banner.png" />
+    <Content Include="app\img\icon-128.png" />
+    <Content Include="app\img\screen-2.png" />
+    <Content Include="app\img\screen.png" />
     <Content Include="app\lib\jquery-2.2.4.min.js" />
     <Content Include="app\bootstrap-3.3.7\js\npm.js" />
     <Content Include="app\img\icon.png" />
     <Content Include="app\lib\angular.min.js" />
     <Content Include="app\popup.html" />
+    <Content Include="app\popup.js" />
     <Content Include="Properties\build\lib\Ionic.Zip.DLL" />
     <Content Include="Properties\build\lib\MSBuild.ExtensionPack.dll" />
     <Content Include="screenshots\screenshot.png" />
