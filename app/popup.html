@@ -9,8 +9,9 @@
             min-width: 360px;
             overflow-x: hidden;
         }
-        .cursor{
-            cursor:pointer;
+
+        .cursor {
+            cursor: pointer;
         }
     </style>
     <!--
@@ -23,81 +24,99 @@
 
 </head>
 <body ng-app="app" ng-controller="popupController as vm">
-    <div class="row">
-        <div class="col-xs-12">
-            <div>
-                <label class="radio-inline">
-                    <input type="radio" name="hkType" value="0" ng-model="vm.HkType"> 平假名
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="hkType" value="1" ng-model="vm.HkType"> 片假名
-                </label>
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="http://note.kimx.info/" target="_blank" title="My Blog"><img src="img/icon.png" height="18" /> JK日語小鍵盤</a></div>
+        <div class="panel-body">
+            <div class="row" ng-init="vm.Init();">
+                <div class="col-xs-12">
+                    <div>
+                        <label class="radio-inline">
+                            <input type="radio" name="hkType" value="0" ng-model="vm.HkType"> 平假名
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hkType" value="1" ng-model="vm.HkType"> 片假名
+                        </label>
+                    </div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-click="vm.KeepTab('#home')" role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">清音</a></li>
+                        <li ng-click="vm.KeepTab('#profile')" role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">濁音</a></li>
+                        <li ng-click="vm.KeepTab('#messages')" role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">拗音</a></li>
+                        <li ng-click="vm.KeepTab('#special')" role="presentation"><a href="#special" aria-controls="special" role="tab" data-toggle="tab">特殊字元</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home" style="max-width:350px">
+                            <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(100)">
+                                <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
+                                        <a ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile" style="max-width:350px">
+                            <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(300)">
+                                <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
+                                        <a ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="messages" style="max-width:250px">
+                            <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(400)">
+                                <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
+                                        <a ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" id="special" style="max-width:250px">
+                            <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(500)">
+                                <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">清音</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">濁音</a></li>
-                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">拗音</a></li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home" style="max-width:350px">
-                    <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(100)">
-                        <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
-                        <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
-                                <a  ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="profile"  style="max-width:350px">
-                    <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(300)">
-                        <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
-                        <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
-                                <a ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="messages"  style="max-width:250px">
-                    <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(400)">
-                        <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
-                        <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="item in items= vm.GetRelations(word)" class="cursor">
-                                <a ng-click="vm.AppendInput(item)">{{item.Text}} <span class="badge">{{item.Descript}}</span></a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="row" style="border-top:1px dashed gray;padding-top:5px;margin-top:5px">
+                <div class="col-xs-12">
+                    <input id="mainInput" type="text" class="form-control" ng-model="vm.InputWord" ng-change="vm.InputChanged()" />
                 </div>
             </div>
-
-
+            <div class="row" style="padding-top:5px">
+                <div class="col-xs-12">
+                    <button class="btn btn-primary" ng-click="vm.Translate()"><span class="glyphicon glyphicon-play"></span> 翻譯</button>
+                    <button class="btn btn-info" ng-click="vm.Copy()"><span class="glyphicon glyphicon-copy"></span> 複製</button>
+                    <button class="btn btn-default" ng-click="vm.Clear()"><span class="glyphicon glyphicon-remove"></span> 清除</button>
+                </div>
+            </div>
         </div>
     </div>
-    <br />
-    <div class="row" style="border-top:1px dashed gray;padding-top:3px">
-        <div class="col-xs-7">
-            <input type="text" class="form-control" ng-model="vm.InputWord" />
-        </div>
-        <div class="col-xs-2">
-            <button class="btn btn-primary" ng-click="vm.Translate()">Google翻譯</button>
-        </div>
-    </div>
+
     <script src="lib/jquery-2.2.4.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>

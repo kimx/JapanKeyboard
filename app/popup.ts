@@ -12,7 +12,34 @@
         this.AddKatakanaLower();
         this.AddKatakanaZo();
         this.AddKatakanaYo();
+        this.AddSpecial();
     }
+
+    Init() {
+        chrome.storage.local.get("tabUrl", function (item: any) {
+            if (item != null) {
+                var tab: any = $('[href="' + item.tabUrl + '"]');
+                tab.tab('show');
+            }
+        });
+
+        chrome.storage.local.get("mainInput", (item: any) => {
+            if (item != null) {
+                $('#mainInput').val(item.mainInput)
+            }
+        });
+
+        document.addEventListener('copy', function (e: any) {
+            var textToPutOnClipboard = $('#mainInput').val();
+            e.clipboardData.setData('text/plain', textToPutOnClipboard);
+            e.preventDefault();
+        });
+    }
+    Clear() {
+        this.InputWord = null;
+        this.InputChanged();
+    }
+
 
     AddHiragana() {
         this.AddWord(110, "a", "あ", HkTypes.H, WordTypes.Pure, [510, 210]);
@@ -120,9 +147,9 @@
         this.AddWord(416, "sha", "しゃ", HkTypes.H, WordTypes.Yo, [816]);
         this.AddWord(417, "shu", "しゅ", HkTypes.H, WordTypes.Yo, [817]);
         this.AddWord(418, "sho", "しょ", HkTypes.H, WordTypes.Yo, [818]);
-        this.AddWord(419, "ja", "じゃ", HkTypes.H, WordTypes.Yo,  [819]);
-        this.AddWord(420, "ju", "じゅ", HkTypes.H, WordTypes.Yo,  [820]);
-        this.AddWord(421, "jo", "じょ", HkTypes.H, WordTypes.Yo,  [821]);
+        this.AddWord(419, "ja", "じゃ", HkTypes.H, WordTypes.Yo, [819]);
+        this.AddWord(420, "ju", "じゅ", HkTypes.H, WordTypes.Yo, [820]);
+        this.AddWord(421, "jo", "じょ", HkTypes.H, WordTypes.Yo, [821]);
         this.AddWord(422, "cha", "ちゃ", HkTypes.H, WordTypes.Yo, [822]);
         this.AddWord(423, "chu", "ちゅ", HkTypes.H, WordTypes.Yo, [823]);
         this.AddWord(424, "cho", "ちょ", HkTypes.H, WordTypes.Yo, [824]);
@@ -195,8 +222,8 @@
         this.AddWord(583, "re", "レ", HkTypes.K, WordTypes.Pure, [183]);
         this.AddWord(584, "ro", "ロ", HkTypes.K, WordTypes.Pure, [184]);
         this.AddWord(593, "wa", "ワ", HkTypes.K, WordTypes.Pure, [193]);
-        this.AddWord(594, "wo", "ン", HkTypes.K, WordTypes.Pure, [194]);
-        this.AddWord(595, "n", "ヲ", HkTypes.K, WordTypes.Pure, [195]);
+        this.AddWord(594, "n", "ヲ", HkTypes.K, WordTypes.Pure, [195]);
+        this.AddWord(595, "wo", "ン", HkTypes.K, WordTypes.Pure, [194]);
 
 
     }
@@ -254,9 +281,9 @@
         this.AddWord(816, "sha", "シャ", HkTypes.K, WordTypes.Yo, [416]);
         this.AddWord(817, "shu", "シュ", HkTypes.K, WordTypes.Yo, [417]);
         this.AddWord(818, "sho", "ショ", HkTypes.K, WordTypes.Yo, [418]);
-        this.AddWord(819, "ja", "ジャ", HkTypes.K, WordTypes.Yo,  [419]);
-        this.AddWord(820, "ju", "ジュ", HkTypes.K, WordTypes.Yo,  [420]);
-        this.AddWord(821, "jo", "ジョ", HkTypes.K, WordTypes.Yo,  [421]);
+        this.AddWord(819, "ja", "ジャ", HkTypes.K, WordTypes.Yo, [419]);
+        this.AddWord(820, "ju", "ジュ", HkTypes.K, WordTypes.Yo, [420]);
+        this.AddWord(821, "jo", "ジョ", HkTypes.K, WordTypes.Yo, [421]);
         this.AddWord(822, "cha", "チャ", HkTypes.K, WordTypes.Yo, [422]);
         this.AddWord(823, "chu", "チュ", HkTypes.K, WordTypes.Yo, [423]);
         this.AddWord(824, "cho", "チョ", HkTypes.K, WordTypes.Yo, [424]);
@@ -280,9 +307,16 @@
         this.AddWord(842, "ryo", "リョ", HkTypes.K, WordTypes.Yo, [442]);
 
     }
+    //ー,々(omaji)
+    AddSpecial() {
+        this.AddWord(910, "ii", "ー", HkTypes.K, WordTypes.Special, null);
+        this.AddWord(911, "omaji", "々", HkTypes.H, WordTypes.Special, null);
+
+
+    }
 
     AddWord(id: number, proun: string, text: string, hkType: HkTypes, wordType: WordTypes, relations: Array<number> = []): WordDto {
-        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType,Descript:"" };
+        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "" };
         this.Words.push(item);
         if (wordType == WordTypes.PureLower)
             item.Descript = "小寫";
@@ -299,6 +333,7 @@
 
     AppendInput(input: WordDto) {
         this.InputWord = `${this.InputWord}${input.Text}`;
+        this.InputChanged();
     }
 
     //---Retrieve
@@ -320,6 +355,16 @@
         var value = encodeURI(this.InputWord);
         var url = `https://translate.google.com.tw/#ja/zh-TW/${value}`;
         window.open(url);
+
+    }
+    KeepTab(tabUrl: string) {
+        chrome.storage.local.set({ "tabUrl": tabUrl });
+    }
+    InputChanged() {
+        chrome.storage.local.set({ "mainInput": this.InputWord });
+    }
+    Copy() {
+        document.execCommand('copy');
     }
 }
 
@@ -328,6 +373,10 @@ class popup {
         document.addEventListener('DOMContentLoaded', () => {
             this.RegisterEvent();
         });
+
+        //document.addEventListener('unload', () => {
+        //    window.location.href = 'http://www.google.com.tw';
+        //});
     }
 
     private RegisterEvent() {
@@ -367,6 +416,7 @@ enum WordTypes {
     PureLower = 200,
     Zo = 300,
     Yo = 400,
+    Special = 500,
 }
 
 new popup();

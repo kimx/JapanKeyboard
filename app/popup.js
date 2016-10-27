@@ -12,7 +12,30 @@ var popupController = (function () {
         this.AddKatakanaLower();
         this.AddKatakanaZo();
         this.AddKatakanaYo();
+        this.AddSpecial();
     }
+    popupController.prototype.Init = function () {
+        chrome.storage.local.get("tabUrl", function (item) {
+            if (item != null) {
+                var tab = $('[href="' + item.tabUrl + '"]');
+                tab.tab('show');
+            }
+        });
+        chrome.storage.local.get("mainInput", function (item) {
+            if (item != null) {
+                $('#mainInput').val(item.mainInput);
+            }
+        });
+        document.addEventListener('copy', function (e) {
+            var textToPutOnClipboard = $('#mainInput').val();
+            e.clipboardData.setData('text/plain', textToPutOnClipboard);
+            e.preventDefault();
+        });
+    };
+    popupController.prototype.Clear = function () {
+        this.InputWord = null;
+        this.InputChanged();
+    };
     popupController.prototype.AddHiragana = function () {
         this.AddWord(110, "a", "あ", HkTypes.H, WordTypes.Pure, [510, 210]);
         this.AddWord(111, "i", "い", HkTypes.H, WordTypes.Pure, [511, 211]);
@@ -185,8 +208,8 @@ var popupController = (function () {
         this.AddWord(583, "re", "レ", HkTypes.K, WordTypes.Pure, [183]);
         this.AddWord(584, "ro", "ロ", HkTypes.K, WordTypes.Pure, [184]);
         this.AddWord(593, "wa", "ワ", HkTypes.K, WordTypes.Pure, [193]);
-        this.AddWord(594, "wo", "ン", HkTypes.K, WordTypes.Pure, [194]);
-        this.AddWord(595, "n", "ヲ", HkTypes.K, WordTypes.Pure, [195]);
+        this.AddWord(594, "n", "ヲ", HkTypes.K, WordTypes.Pure, [195]);
+        this.AddWord(595, "wo", "ン", HkTypes.K, WordTypes.Pure, [194]);
     };
     popupController.prototype.AddKatakanaLower = function () {
         this.AddWord(610, "a", "ァ", HkTypes.K, WordTypes.PureLower, []);
@@ -263,6 +286,11 @@ var popupController = (function () {
         this.AddWord(841, "ryu", "リュ", HkTypes.K, WordTypes.Yo, [441]);
         this.AddWord(842, "ryo", "リョ", HkTypes.K, WordTypes.Yo, [442]);
     };
+    //ー,々(omaji)
+    popupController.prototype.AddSpecial = function () {
+        this.AddWord(910, "ii", "ー", HkTypes.K, WordTypes.Special, null);
+        this.AddWord(911, "omaji", "々", HkTypes.H, WordTypes.Special, null);
+    };
     popupController.prototype.AddWord = function (id, proun, text, hkType, wordType, relations) {
         if (relations === void 0) { relations = []; }
         var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "" };
@@ -281,6 +309,7 @@ var popupController = (function () {
     };
     popupController.prototype.AppendInput = function (input) {
         this.InputWord = "" + this.InputWord + input.Text;
+        this.InputChanged();
     };
     //---Retrieve
     popupController.prototype.RetrieveData = function (wordType) {
@@ -302,6 +331,15 @@ var popupController = (function () {
         var url = "https://translate.google.com.tw/#ja/zh-TW/" + value;
         window.open(url);
     };
+    popupController.prototype.KeepTab = function (tabUrl) {
+        chrome.storage.local.set({ "tabUrl": tabUrl });
+    };
+    popupController.prototype.InputChanged = function () {
+        chrome.storage.local.set({ "mainInput": this.InputWord });
+    };
+    popupController.prototype.Copy = function () {
+        document.execCommand('copy');
+    };
     return popupController;
 }());
 var popup = (function () {
@@ -310,6 +348,9 @@ var popup = (function () {
         document.addEventListener('DOMContentLoaded', function () {
             _this.RegisterEvent();
         });
+        //document.addEventListener('unload', () => {
+        //    window.location.href = 'http://www.google.com.tw';
+        //});
     }
     popup.prototype.RegisterEvent = function () {
         $("[jk-button]").on("click", function (e) {
@@ -336,5 +377,6 @@ var WordTypes;
     WordTypes[WordTypes["PureLower"] = 200] = "PureLower";
     WordTypes[WordTypes["Zo"] = 300] = "Zo";
     WordTypes[WordTypes["Yo"] = 400] = "Yo";
+    WordTypes[WordTypes["Special"] = 500] = "Special";
 })(WordTypes || (WordTypes = {}));
 new popup();
