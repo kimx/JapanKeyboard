@@ -58,12 +58,9 @@
     <Content Include="app\lib\angular.min.js" />
     <Content Include="app\popup.html" />
     <Content Include="app\popup.js" />
-    <Content Include="Properties\build\lib\Ionic.Zip.DLL" />
-    <Content Include="Properties\build\lib\MSBuild.ExtensionPack.dll" />
     <Content Include="screenshots\screenshot.png" />
     <Content Include="index.htm" />
     <Content Include="DebugSettings.template.xml" />
-    <Content Include="Properties\build\ligershark.chrome.targets" />
     <Content Include="screenshots\readme.txt" />
     <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.css.map" />
     <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.min.css.map" />
@@ -129,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <PropertyGroup>
     <LigerSharkChromeTargetsPath>$(BuildFolder)\ligershark.chrome.targets</LigerSharkChromeTargetsPath>
