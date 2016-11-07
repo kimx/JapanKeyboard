@@ -36,7 +36,7 @@
         });
     }
     Clear() {
-        this.InputWord = null;
+        this.InputWord = "";
         this.InputChanged();
     }
 

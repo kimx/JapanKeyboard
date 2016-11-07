@@ -33,7 +33,7 @@ var popupController = (function () {
         });
     };
     popupController.prototype.Clear = function () {
-        this.InputWord = null;
+        this.InputWord = "";
         this.InputChanged();
     };
     popupController.prototype.AddHiragana = function () {
