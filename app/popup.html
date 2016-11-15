@@ -6,13 +6,21 @@
     <link href="bootstrap-3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" />
     <style>
         body {
-            min-width: 360px;
+            min-width: 540px;
             overflow-x: hidden;
         }
 
         .cursor {
             cursor: pointer;
         }
+
+        a.history {
+            cursor: pointer;
+        }
+
+            a.history:hover {
+                text-decoration: line-through;
+            }
     </style>
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
@@ -26,19 +34,30 @@
 <body ng-app="app" ng-controller="popupController as vm">
     <div class="panel panel-default">
         <div class="panel-heading"><a href="http://note.kimx.info/" target="_blank" title="My Blog"><img src="img/icon.png" height="18" /> JK日語小鍵盤</a></div>
-        <div class="panel-body">
-            <div class="row" ng-init="vm.Init();">
-                <div class="col-xs-12">
-                    <div>
-                        <label class="radio-inline">
-                            <input type="radio" name="hkType" value="0" ng-model="vm.HkType"> 平假名
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="hkType" value="1" ng-model="vm.HkType"> 片假名
-                        </label>
-                    </div>
+        <div class="panel-body" ng-init="vm.Init();">
+            <div class="row">
+                <div class="col-xs-9">
+                    <label class="radio-inline">
+                        <input type="radio" name="hkType" value="0" ng-model="vm.HkType"> 平假名
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="hkType" value="1" ng-model="vm.HkType"> 片假名
+                    </label>
+                    <hr />
+                </div>
+                <div class="col-xs-3">
+                    <a class="history" ng-click="vm.HistoryClear();" title="清除歷史資料">
+                        <span class="glyphicon glyphicon-equalizer"></span> 歷史資料
+                    </a>
+                    <hr />
+                </div>
+
+            </div>
+     
+            <div class="row">
+                <div class="col-xs-8">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul class="nav nav-tabs nav-pills" role="tablist">
                         <li ng-click="vm.KeepTab('#home')" role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">清音</a></li>
                         <li ng-click="vm.KeepTab('#profile')" role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">濁音</a></li>
                         <li ng-click="vm.KeepTab('#messages')" role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">拗音</a></li>
@@ -100,6 +119,10 @@
                     </div>
 
 
+                </div>
+                <div class="col-xs-4">
+                    <span class="label label-info" style="margin-right:3px;cursor:pointer;display:inline-block" ng-repeat="h in vm.HistoryWords"
+                          ng-click="vm.HistoryToInput(h)">{{h}}</span>
                 </div>
             </div>
             <div class="row" style="border-top:1px dashed gray;padding-top:5px;margin-top:5px">

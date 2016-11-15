@@ -3,7 +3,7 @@
 
   "name": "JK日語小鍵盤",
   "description": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文",
-  "version": "1.3",
+  "version": "1.4",
 
   "permissions": [
     "storage"

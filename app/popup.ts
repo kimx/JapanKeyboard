@@ -2,6 +2,7 @@
     Words: Array<WordDto>;
     InputWord: string = "";
     HkType: HkTypes = HkTypes.H;
+    HistoryWords: Array<string>;
     constructor(private $scope: ng.IScope) {
         this.Words = [];
         this.AddHiragana();
@@ -16,6 +17,7 @@
     }
 
     Init() {
+        this.HistoryWords = [];
         chrome.storage.local.get("tabUrl", function (item: any) {
             if (item != null) {
                 var tab: any = $('[href="' + item.tabUrl + '"]');
@@ -25,7 +27,20 @@
 
         chrome.storage.local.get("mainInput", (item: any) => {
             if (item != null) {
-                $('#mainInput').val(item.mainInput)
+                // $('#mainInput').val(item.mainInput)
+                this.InputWord = item.mainInput;
+                this.$scope.$apply();
+            }
+        });
+
+        chrome.storage.local.get("HistoryWords", (item: any) => {
+            if (item != null) {
+                console.log(item.HistoryWords);
+                this.HistoryWords = item.HistoryWords;
+                if (this.HistoryWords == undefined)
+                    this.HistoryWords = [];
+                this.$scope.$apply();
+
             }
         });
 
@@ -352,6 +367,7 @@
     }
 
     Translate() {
+        this.AddToHistory();
         var value = encodeURI(this.InputWord);
         var url = `https://translate.google.com.tw/#ja/zh-TW/${value}`;
         window.open(url);
@@ -364,8 +380,37 @@
         chrome.storage.local.set({ "mainInput": this.InputWord });
     }
     Copy() {
+        this.AddToHistory();
         document.execCommand('copy');
     }
+
+    HistoryToInput(h: string) {
+        this.InputWord = this.InputWord + h;
+    }
+    HistoryClear() {
+        this.HistoryWords = [];
+        chrome.storage.local.set({ "HistoryWords": this.HistoryWords });
+    }
+    HistoryMax = 20;
+    private AddToHistory() {
+        this.RemoveItem(this.HistoryWords, this.InputWord);
+        this.HistoryWords.reverse();
+        this.HistoryWords.push(this.InputWord);
+        this.HistoryWords.reverse();
+
+        if (this.HistoryWords.length > this.HistoryMax) {
+            this.HistoryWords.splice(this.HistoryMax, this.HistoryWords.length - this.HistoryMax);
+        }
+
+        chrome.storage.local.set({ "HistoryWords": this.HistoryWords });
+    }
+    private RemoveItem(items: Array<any>, item: any) {
+        var index = items.indexOf(item);
+        if (index == -1)
+            return;
+        items.splice(index, 1);
+    }
+
 }
 
 class popup {

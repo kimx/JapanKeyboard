@@ -3,6 +3,7 @@ var popupController = (function () {
         this.$scope = $scope;
         this.InputWord = "";
         this.HkType = HkTypes.H;
+        this.HistoryMax = 20;
         this.Words = [];
         this.AddHiragana();
         this.AddHiraganaLower();
@@ -15,6 +16,8 @@ var popupController = (function () {
         this.AddSpecial();
     }
     popupController.prototype.Init = function () {
+        var _this = this;
+        this.HistoryWords = [];
         chrome.storage.local.get("tabUrl", function (item) {
             if (item != null) {
                 var tab = $('[href="' + item.tabUrl + '"]');
@@ -23,7 +26,18 @@ var popupController = (function () {
         });
         chrome.storage.local.get("mainInput", function (item) {
             if (item != null) {
-                $('#mainInput').val(item.mainInput);
+                // $('#mainInput').val(item.mainInput)
+                _this.InputWord = item.mainInput;
+                _this.$scope.$apply();
+            }
+        });
+        chrome.storage.local.get("HistoryWords", function (item) {
+            if (item != null) {
+                console.log(item.HistoryWords);
+                _this.HistoryWords = item.HistoryWords;
+                if (_this.HistoryWords == undefined)
+                    _this.HistoryWords = [];
+                _this.$scope.$apply();
             }
         });
         document.addEventListener('copy', function (e) {
@@ -327,6 +341,7 @@ var popupController = (function () {
         return array;
     };
     popupController.prototype.Translate = function () {
+        this.AddToHistory();
         var value = encodeURI(this.InputWord);
         var url = "https://translate.google.com.tw/#ja/zh-TW/" + value;
         window.open(url);
@@ -338,7 +353,31 @@ var popupController = (function () {
         chrome.storage.local.set({ "mainInput": this.InputWord });
     };
     popupController.prototype.Copy = function () {
+        this.AddToHistory();
         document.execCommand('copy');
+    };
+    popupController.prototype.HistoryToInput = function (h) {
+        this.InputWord = this.InputWord + h;
+    };
+    popupController.prototype.HistoryClear = function () {
+        this.HistoryWords = [];
+        chrome.storage.local.set({ "HistoryWords": this.HistoryWords });
+    };
+    popupController.prototype.AddToHistory = function () {
+        this.RemoveItem(this.HistoryWords, this.InputWord);
+        this.HistoryWords.reverse();
+        this.HistoryWords.push(this.InputWord);
+        this.HistoryWords.reverse();
+        if (this.HistoryWords.length > this.HistoryMax) {
+            this.HistoryWords.splice(this.HistoryMax, this.HistoryWords.length - this.HistoryMax);
+        }
+        chrome.storage.local.set({ "HistoryWords": this.HistoryWords });
+    };
+    popupController.prototype.RemoveItem = function (items, item) {
+        var index = items.indexOf(item);
+        if (index == -1)
+            return;
+        items.splice(index, 1);
     };
     return popupController;
 }());
