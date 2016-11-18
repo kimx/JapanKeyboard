@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "JK日語小鍵盤",
-  "description": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文",
-  "version": "1.4",
+  "description": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文 http://project.kimx.info/2016/11/jk-keyboard.html",
+  "version": "1.5",
 
   "permissions": [
     "storage"
