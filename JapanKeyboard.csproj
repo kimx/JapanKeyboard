@@ -72,6 +72,9 @@
     <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="packages.config" />
+    <Content Include="app\_locales\en\messages.json" />
+    <Content Include="app\_locales\zh_TW\messages.json" />
+    <Content Include="app\_locales\zh_CN\messages.json" />
     <None Include="scripts\_references.js" />
     <None Include="scripts\chrome-api-vsdoc.js" />
     <Content Include="web.config" />

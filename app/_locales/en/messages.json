@@ -1,0 +1,44 @@
+﻿{
+  "extName": {
+    "message": "JK Japan Keyboard Helper"
+  },
+  "extDesc": {
+    "message": "It offers you can input Japan words without the physical keyboard. http://project.kimx.info/2016/11/jk-keyboard.html"
+  },
+  "hkType0": {
+    "message": "Hiragana"
+  },
+  "hkType1": {
+    "message": "Katakan"
+  },
+  "historyData": {
+    "message": "History"
+  },
+  "seiOn": {
+    "message": "SeiOn"
+  },
+  "dakuOn": {
+    "message": "DakuOn"
+  },
+  "yoOn": {
+    "message": "YoOn"
+  },
+  "special": {
+    "message": "Special"
+  },
+  "translate": {
+    "message": "Translate"
+  },
+  "copy": {
+    "message": "Copy"
+  },
+  "clean": {
+    "message": "Clean"
+  },
+  "lower": {
+    "message": "Lower case"
+  },
+  "dakuYoOn": {
+    "message": "Daku or Yo"
+  }
+}

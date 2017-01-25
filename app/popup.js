@@ -33,7 +33,6 @@ var popupController = (function () {
         });
         chrome.storage.local.get("HistoryWords", function (item) {
             if (item != null) {
-                console.log(item.HistoryWords);
                 _this.HistoryWords = item.HistoryWords;
                 if (_this.HistoryWords == undefined)
                     _this.HistoryWords = [];
@@ -45,6 +44,14 @@ var popupController = (function () {
             e.clipboardData.setData('text/plain', textToPutOnClipboard);
             e.preventDefault();
         });
+        // $("[locale-id='hkType']").html(chrome.i18n.getMessage("hkType"));
+        var localeElms = $("[locale-id]");
+        $.each(localeElms, function (i, elm) {
+            var name = $(elm).attr("locale-id");
+            var value = chrome.i18n.getMessage(name);
+            $(elm).html(value);
+        });
+        console.log(chrome.i18n.getUILanguage());
     };
     popupController.prototype.Clear = function () {
         this.InputWord = "";
@@ -310,14 +317,14 @@ var popupController = (function () {
         var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "" };
         this.Words.push(item);
         if (wordType == WordTypes.PureLower)
-            item.Descript = "小寫";
+            item.Descript = chrome.i18n.getMessage("lower"); //"小寫";
         else if (wordType == WordTypes.Zo)
-            item.Descript = "半全濁音";
+            item.Descript = chrome.i18n.getMessage("dakuYoOn"); //"半全濁音";
         else if (wordType == WordTypes.Pure || wordType == WordTypes.Yo) {
             if (hkType == HkTypes.H)
-                item.Descript = "平假名";
+                item.Descript = chrome.i18n.getMessage("hkType0"); //"平假名";
             else
-                item.Descript = "片假名";
+                item.Descript = chrome.i18n.getMessage("hkType1"); // "片假名";
         }
         return item;
     };
@@ -343,7 +350,10 @@ var popupController = (function () {
     popupController.prototype.Translate = function () {
         this.AddToHistory();
         var value = encodeURI(this.InputWord);
-        var url = "https://translate.google.com.tw/#ja/zh-TW/" + value;
+        var lang = chrome.i18n.getUILanguage();
+        if (lang.substr(0, 3) == "en-")
+            lang = "en";
+        var url = "https://translate.google.com.tw/#ja/" + lang + "/" + value;
         window.open(url);
     };
     popupController.prototype.KeepTab = function (tabUrl) {
