@@ -31,6 +31,12 @@ var popupController = (function () {
                 _this.$scope.$apply();
             }
         });
+        chrome.storage.local.get("hkType", function (item) {
+            if (item != null) {
+                _this.HkType = item.hkType;
+                _this.$scope.$apply();
+            }
+        });
         chrome.storage.local.get("HistoryWords", function (item) {
             if (item != null) {
                 _this.HistoryWords = item.HistoryWords;
@@ -358,6 +364,9 @@ var popupController = (function () {
     };
     popupController.prototype.KeepTab = function (tabUrl) {
         chrome.storage.local.set({ "tabUrl": tabUrl });
+    };
+    popupController.prototype.KeepHkType = function (hkType) {
+        chrome.storage.local.set({ "hkType": hkType });
     };
     popupController.prototype.InputChanged = function () {
         chrome.storage.local.set({ "mainInput": this.InputWord });

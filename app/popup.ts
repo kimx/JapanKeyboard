@@ -33,6 +33,13 @@
             }
         });
 
+        chrome.storage.local.get("hkType", (item: any) => {
+            if (item != null) {
+                this.HkType = item.hkType;
+                this.$scope.$apply();
+            }
+        });
+
         chrome.storage.local.get("HistoryWords", (item: any) => {
             if (item != null) {
                 this.HistoryWords = item.HistoryWords;
@@ -387,6 +394,9 @@
     }
     KeepTab(tabUrl: string) {
         chrome.storage.local.set({ "tabUrl": tabUrl });
+    }
+    KeepHkType(hkType:number) {
+        chrome.storage.local.set({ "hkType": hkType });
     }
     InputChanged() {
         chrome.storage.local.set({ "mainInput": this.InputWord });
