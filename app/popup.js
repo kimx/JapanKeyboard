@@ -27,18 +27,23 @@ var popupController = (function () {
         chrome.storage.local.get("mainInput", function (item) {
             if (item != null) {
                 // $('#mainInput').val(item.mainInput)
-                _this.InputWord = item.mainInput;
+                if (item.mainInput) {
+                    _this.InputWord = item.mainInput;
+                    angular.forEach(_this.Words, function (value, index) {
+                        value.Selected = _this.InputWord.indexOf(value.Text) > -1;
+                    });
+                }
                 _this.$scope.$apply();
             }
         });
         chrome.storage.local.get("hkType", function (item) {
-            if (item != null) {
+            if (item.hkType) {
                 _this.HkType = item.hkType;
                 _this.$scope.$apply();
             }
         });
         chrome.storage.local.get("HistoryWords", function (item) {
-            if (item != null) {
+            if (item.HistoryWords) {
                 _this.HistoryWords = item.HistoryWords;
                 if (_this.HistoryWords == undefined)
                     _this.HistoryWords = [];
@@ -320,7 +325,7 @@ var popupController = (function () {
     };
     popupController.prototype.AddWord = function (id, proun, text, hkType, wordType, relations) {
         if (relations === void 0) { relations = []; }
-        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "" };
+        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "", Selected: false };
         this.Words.push(item);
         if (wordType == WordTypes.PureLower)
             item.Descript = chrome.i18n.getMessage("lower"); //"小寫";
@@ -369,7 +374,11 @@ var popupController = (function () {
         chrome.storage.local.set({ "hkType": hkType });
     };
     popupController.prototype.InputChanged = function () {
+        var _this = this;
         chrome.storage.local.set({ "mainInput": this.InputWord });
+        angular.forEach(this.Words, function (value, index) {
+            value.Selected = _this.InputWord.indexOf(value.Text) > -1;
+        });
     };
     popupController.prototype.Copy = function () {
         this.AddToHistory();
@@ -438,3 +447,4 @@ var WordTypes;
     WordTypes[WordTypes["Special"] = 500] = "Special";
 })(WordTypes || (WordTypes = {}));
 new popup();
+//# sourceMappingURL=popup.js.map

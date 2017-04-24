@@ -28,20 +28,25 @@
         chrome.storage.local.get("mainInput", (item: any) => {
             if (item != null) {
                 // $('#mainInput').val(item.mainInput)
-                this.InputWord = item.mainInput;
+                if (item.mainInput) {
+                    this.InputWord = item.mainInput;
+                    angular.forEach(this.Words, (value, index) => {
+                        value.Selected = this.InputWord.indexOf(value.Text) > -1;
+                    });
+                }
                 this.$scope.$apply();
             }
         });
 
         chrome.storage.local.get("hkType", (item: any) => {
-            if (item != null) {
+            if (item.hkType) {
                 this.HkType = item.hkType;
                 this.$scope.$apply();
             }
         });
 
         chrome.storage.local.get("HistoryWords", (item: any) => {
-            if (item != null) {
+            if (item.HistoryWords) {
                 this.HistoryWords = item.HistoryWords;
                 if (this.HistoryWords == undefined)
                     this.HistoryWords = [];
@@ -346,7 +351,7 @@
     }
 
     AddWord(id: number, proun: string, text: string, hkType: HkTypes, wordType: WordTypes, relations: Array<number> = []): WordDto {
-        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "" };
+        var item = { Id: id, Pronun: proun, Text: text, WordType: wordType, Relations: relations, HkType: hkType, Descript: "", Selected: false };
         this.Words.push(item);
         if (wordType == WordTypes.PureLower)
             item.Descript = chrome.i18n.getMessage("lower");//"小寫";
@@ -395,11 +400,14 @@
     KeepTab(tabUrl: string) {
         chrome.storage.local.set({ "tabUrl": tabUrl });
     }
-    KeepHkType(hkType:number) {
+    KeepHkType(hkType: number) {
         chrome.storage.local.set({ "hkType": hkType });
     }
     InputChanged() {
         chrome.storage.local.set({ "mainInput": this.InputWord });
+        angular.forEach(this.Words, (value, index) => {
+            value.Selected = this.InputWord.indexOf(value.Text) > -1;
+        });
     }
     Copy() {
         this.AddToHistory();
@@ -471,6 +479,7 @@ interface WordDto {
     WordType: WordTypes;
     Relations: Array<number>;
     Descript: string;
+    Selected: boolean;
 }
 
 enum HkTypes {

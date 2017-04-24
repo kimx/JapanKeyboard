@@ -50,7 +50,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="home" style="max-width:350px">
                                 <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(100)">
-                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn" ng-class="{true: 'btn-primary', false: 'btn-default'}[word.Selected]" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
                                     <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
@@ -64,7 +64,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="profile" style="max-width:350px">
                                 <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(300)">
-                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id"  class="btn" ng-class="{true: 'btn-primary', false: 'btn-default'}[word.Selected]" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
                                     <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
@@ -78,7 +78,7 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="messages" style="max-width:250px">
                                 <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(400)">
-                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn" ng-class="{true: 'btn-primary', false: 'btn-default'}[word.Selected]" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
                                     <button ng-disabled="word.Id==0" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
@@ -93,7 +93,7 @@
 
                             <div role="tabpanel" class="tab-pane" id="special" style="max-width:250px">
                                 <div class="btn-group" ng-repeat="word in words= vm.RetrieveData(500)">
-                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn btn-default" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
+                                    <button ng-disabled="word.Id==0" jk-button="hiraWord.Id" class="btn" ng-class="{true: 'btn-primary', false: 'btn-default'}[word.Selected]" ng-click="vm.AppendInput(word)">{{word.Text}}</button>
 
 
                                 </div>
