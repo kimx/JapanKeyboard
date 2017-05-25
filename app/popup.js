@@ -231,7 +231,7 @@ var popupController = (function () {
         this.AddWord(574, "mo", "モ", HkTypes.K, WordTypes.Pure, [174,]);
         this.AddWord(590, "ya", "ヤ", HkTypes.K, WordTypes.Pure, [190, 690]);
         this.AddWord(0, "i", "イ", HkTypes.K, WordTypes.Pure, []);
-        this.AddWord(590, "ya", "ヤ", HkTypes.K, WordTypes.Pure, [191, 691]);
+        this.AddWord(591, "yu", "ユ", HkTypes.K, WordTypes.Pure, [191, 691]);
         this.AddWord(0, "e", "エ", HkTypes.K, WordTypes.Pure, []);
         this.AddWord(592, "yo", "ヨ", HkTypes.K, WordTypes.Pure, [192, 692]);
         this.AddWord(580, "ra", "ラ", HkTypes.K, WordTypes.Pure, [180]);
