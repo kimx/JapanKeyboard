@@ -3,6 +3,7 @@
     InputWord: string = "";
     HkType: HkTypes = HkTypes.H;
     HistoryWords: Array<string>;
+    Version: string;
     constructor(private $scope: ng.IScope) {
         this.Words = [];
         this.AddHiragana();
@@ -68,7 +69,8 @@
             var value = chrome.i18n.getMessage(name);
             $(elm).html(value);
         });
-        console.log(chrome.i18n.getUILanguage());
+        // console.log(chrome.i18n.getUILanguage());
+        this.Version = chrome.app.getDetails().version;
     }
     Clear() {
         this.InputWord = "";

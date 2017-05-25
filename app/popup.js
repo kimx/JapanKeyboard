@@ -62,7 +62,8 @@ var popupController = (function () {
             var value = chrome.i18n.getMessage(name);
             $(elm).html(value);
         });
-        console.log(chrome.i18n.getUILanguage());
+        // console.log(chrome.i18n.getUILanguage());
+        this.Version = chrome.app.getDetails().version;
     };
     popupController.prototype.Clear = function () {
         this.InputWord = "";
