@@ -1,6 +1,6 @@
 ﻿   
   html,body {
-            min-width: 570px;
+            min-width: 530px;
         }
    
         .cursor {
@@ -106,4 +106,12 @@
 }
 .panel {
     margin-bottom:0px;
+}
+.btn-group {
+    margin-left: 1px;
+    margin-bottom: 1px;
+}
+.card-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

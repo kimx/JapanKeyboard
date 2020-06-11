@@ -425,6 +425,9 @@
     }
     HistoryMax = 20;
     private AddToHistory() {
+        this.InputWord = this.InputWord.trim();
+        if (this.InputWord == "" || this.InputWord == null)
+            return;
         this.RemoveItem(this.HistoryWords, this.InputWord);
         this.HistoryWords.reverse();
         this.HistoryWords.push(this.InputWord);

@@ -21,7 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,20 +55,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.css" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.min.css" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap.css" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap.min.css" />
-    <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="app\bootstrap-3.3.7\js\bootstrap.js" />
-    <Content Include="app\bootstrap-3.3.7\js\bootstrap.min.js" />
+    <Content Include="app\AdminLTE-3.0.4\adminlte.min.css" />
+    <Content Include="app\bootstrap-4.4.1\bootstrap.js" />
+    <Content Include="app\bootstrap-4.4.1\bootstrap.min.js" />
     <Content Include="app\css\popup.css" />
+    <Content Include="app\fontawesome-free\css\all.min.css" />
+    <Content Include="app\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="app\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="app\fontawesome-free\webfonts\fa-solid-900.svg" />
     <Content Include="app\img\banner.png" />
     <Content Include="app\img\icon-128.png" />
     <Content Include="app\img\screen-2.png" />
     <Content Include="app\img\screen.png" />
     <Content Include="app\lib\jquery-2.2.4.min.js" />
-    <Content Include="app\bootstrap-3.3.7\js\npm.js" />
     <Content Include="app\img\icon.png" />
     <Content Include="app\lib\angular.min.js" />
     <Content Include="app\popup.html" />
@@ -63,18 +76,22 @@
     <Content Include="index.htm" />
     <Content Include="DebugSettings.template.xml" />
     <Content Include="screenshots\readme.txt" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.css.map" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap-theme.min.css.map" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap.css.map" />
-    <Content Include="app\bootstrap-3.3.7\css\bootstrap.min.css.map" />
-    <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="app\bootstrap-3.3.7\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="packages.config" />
     <Content Include="app\_locales\en\messages.json" />
     <Content Include="app\_locales\zh_TW\messages.json" />
     <Content Include="app\_locales\zh_CN\messages.json" />
+    <Content Include="app\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="app\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="app\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="app\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="app\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="app\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="app\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="app\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="app\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="app\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="app\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="app\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <None Include="scripts\_references.js" />
     <None Include="scripts\chrome-api-vsdoc.js" />
     <Content Include="web.config" />

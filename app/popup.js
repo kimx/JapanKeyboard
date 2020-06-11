@@ -1,4 +1,4 @@
-var popupController = (function () {
+var popupController = /** @class */ (function () {
     function popupController($scope) {
         this.$scope = $scope;
         this.InputWord = "";
@@ -393,6 +393,9 @@ var popupController = (function () {
         chrome.storage.local.set({ "HistoryWords": this.HistoryWords });
     };
     popupController.prototype.AddToHistory = function () {
+        this.InputWord = this.InputWord.trim();
+        if (this.InputWord == "" || this.InputWord == null)
+            return;
         this.RemoveItem(this.HistoryWords, this.InputWord);
         this.HistoryWords.reverse();
         this.HistoryWords.push(this.InputWord);
@@ -410,7 +413,7 @@ var popupController = (function () {
     };
     return popupController;
 }());
-var popup = (function () {
+var popup = /** @class */ (function () {
     function popup() {
         var _this = this;
         document.addEventListener('DOMContentLoaded', function () {
