@@ -61,9 +61,16 @@ var popupController = /** @class */ (function () {
             var name = $(elm).attr("locale-id");
             var value = chrome.i18n.getMessage(name);
             $(elm).html(value);
+            console.log(name + " : " + value);
         });
         // console.log(chrome.i18n.getUILanguage());
-        this.Version = chrome.app.getDetails().version;
+        //this.Version = chrome.app.getDetails().version;
+        this.Version = chrome.runtime.getManifest().version;
+    };
+    popupController.prototype.OpenTab = function () {
+        chrome.tabs.create({
+            url: "popup.html"
+        });
     };
     popupController.prototype.Clear = function () {
         this.InputWord = "";
@@ -341,7 +348,7 @@ var popupController = /** @class */ (function () {
         return item;
     };
     popupController.prototype.AppendInput = function (input) {
-        this.InputWord = "" + this.InputWord + input.Text;
+        this.InputWord = "".concat(this.InputWord).concat(input.Text);
         this.InputChanged();
     };
     //---Retrieve
@@ -365,7 +372,7 @@ var popupController = /** @class */ (function () {
         var lang = chrome.i18n.getUILanguage();
         if (lang.substr(0, 3) == "en-")
             lang = "en";
-        var url = "https://translate.google.com.tw/#ja/" + lang + "/" + value;
+        var url = "https://translate.google.com.tw/#ja/".concat(lang, "/").concat(value);
         window.open(url);
     };
     popupController.prototype.KeepTab = function (tabUrl) {
@@ -451,4 +458,3 @@ var WordTypes;
     WordTypes[WordTypes["Special"] = 500] = "Special";
 })(WordTypes || (WordTypes = {}));
 new popup();
-//# sourceMappingURL=popup.js.map

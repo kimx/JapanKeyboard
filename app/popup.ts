@@ -14,7 +14,7 @@
         this.AddKatakanaLower();
         this.AddKatakanaZo();
         this.AddKatakanaYo();
-        this.AddSpecial();
+        this.AddSpecial(); 
     }
 
     Init() {
@@ -68,10 +68,19 @@
             var name = $(elm).attr("locale-id");
             var value = chrome.i18n.getMessage(name);
             $(elm).html(value);
+            console.log(name +" : " + value);
         });
         // console.log(chrome.i18n.getUILanguage());
-        this.Version = chrome.app.getDetails().version;
+        //this.Version = chrome.app.getDetails().version;
+        this.Version = chrome.runtime.getManifest().version;
     }
+
+    OpenTab() {
+        chrome.tabs.create({
+            url: "popup.html"
+        });
+    }
+
     Clear() {
         this.InputWord = "";
         this.InputChanged();

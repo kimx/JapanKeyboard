@@ -1,44 +1,47 @@
 ﻿{
-  "extName": {
-    "message": "JK日語小鍵盤"
-  },
-  "extDesc": {
-    "message": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文 http://project.kimx.info/2016/11/jk-keyboard.html"
-  },
-  "hkType0": {
-    "message": "平假名"
-  },
-  "hkType1": {
-    "message": "片假名"
-  },
-  "historyData": {
-    "message": "歷史資料"
-  },
-  "seiOn": {
-    "message": "清音"
-  },
-  "dakuOn": {
-    "message": "濁音"
-  },
-  "yoOn": {
-    "message": "拗音"
-  },
-  "special": {
-    "message": "特殊字元"
-  },
-  "translate": {
-    "message": "翻譯"
-  },
-  "copy": {
-    "message": "複製"
-  },
-  "clean": {
-    "message": "清除"
-  },
-  "lower": {
-    "message": "小寫"
-  },
-  "dakuYoOn": {
-    "message": "半全濁音"
-  }
+    "extName": {
+        "message": "JK日語小鍵盤"
+    },
+    "extDesc": {
+        "message": "提供電腦沒有日文鍵盤時，也可以輕鬆的輸入日文 http://project.kimx.info/2016/11/jk-keyboard.html"
+    },
+    "hkType0": {
+        "message": "平假名"
+    },
+    "hkType1": {
+        "message": "片假名"
+    },
+    "historyData": {
+        "message": "歷史資料"
+    },
+    "seiOn": {
+        "message": "清音"
+    },
+    "dakuOn": {
+        "message": "濁音"
+    },
+    "yoOn": {
+        "message": "拗音"
+    },
+    "special": {
+        "message": "特殊字元"
+    },
+    "translate": {
+        "message": "翻譯"
+    },
+    "copy": {
+        "message": "複製"
+    },
+    "clean": {
+        "message": "清除"
+    },
+    "lower": {
+        "message": "小寫"
+    },
+    "dakuYoOn": {
+        "message": "半全濁音"
+    },
+    "openTab": {
+        "message": " 新視窗"
+    }
 }

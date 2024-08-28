@@ -1,0 +1,24 @@
+/*
+    2022.07.12: VS2022 17.3後的TypeScript設定。
+    1.compileXXX: 儲存後編譯並使用ES5。
+      以上若只需建置時才產出，可以不用設定，建置時期的設定會以專案檔內的。以上比對過儲存後產出，及用建置的方式產出，都是一致的。
+    2.include :引用專案內所有的.ts及.d.ts，給其他.ts的參考提示 (解決cannot find namespace)。
+    
+    2022.09.22:
+    1.加入package Microsoft.TypeScript.MSBuild，將開發與發行時期(不分環境)產生一致的.js。
+    2."lib" : 加入哪個版本的參考提示，例如:async 在es2017才有,Set在es2015，此設定讓開發時期可以支援較高版本
+    ，但在產生時還是以target為主，若target的版本較低,則.js會產生符合target版本的寫法。
+    目前設定es2018 1.較符合async es2017及全域的設定值(若沒有tsconfig的話)
+*/
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "None",
+        "lib": [ "es2018", "dom" ]
+    },
+    "include": [ "**/**/*" ],
+    "exclude": [
+
+    ]
+}
