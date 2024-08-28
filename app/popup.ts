@@ -68,7 +68,6 @@
             var name = $(elm).attr("locale-id");
             var value = chrome.i18n.getMessage(name);
             $(elm).html(value);
-            console.log(name +" : " + value);
         });
         // console.log(chrome.i18n.getUILanguage());
         //this.Version = chrome.app.getDetails().version;
