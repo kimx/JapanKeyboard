@@ -20,7 +20,8 @@
     <div class="card card-info" style="margin-bottom:0">
         <div class="card-header">
             <a href="http://project.kimx.info/2016/11/jk-keyboard.html" target="_blank" title="My Blog"><img src="img/icon.png" height="24" /> <span locale-id="extName">JK日語小鍵盤</span></a>
-            <span class="pull-right">v{{vm.Version}}</span>
+            <span >v{{vm.Version}}</span>
+            <span class="float-right fa fa-align-justify" style="cursor:pointer" ng-click="vm.OpenTab()" locale-id="openTab">Open Tab</span>
         </div>
         <div class="card-body" ng-init="vm.Init();" style="padding:6px">
             <div class="row">
