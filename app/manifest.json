@@ -5,8 +5,7 @@
     "description": "__MSG_extDesc__",
     "version": "3.4",
     "permissions": [
-        "storage",
-        "tabs"
+        "storage"
     ],
     "action": {
         "default_popup": "popup.html",
