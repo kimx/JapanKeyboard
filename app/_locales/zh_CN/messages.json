@@ -43,5 +43,14 @@
     },
     "openTab": {
         "message": " 新视窗"
+    },
+    "langEnglish": {
+        "message": "英文"
+    },
+    "langChineseBig5": {
+        "message": "繁体中文"
+    },
+    "langSimple": {
+        "message": "简体中文"
     }
 }

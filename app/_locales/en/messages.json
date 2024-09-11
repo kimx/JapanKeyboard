@@ -43,5 +43,14 @@
     },
     "openTab": {
         "message": " Open Tab"
+    },
+    "langEnglish": {
+        "message": "English"
+    },
+    "langChineseBig5": {
+        "message": "Chinese Traditional"
+    },
+    "langSimple": {
+        "message": "Chinese Simple"
     }
 }

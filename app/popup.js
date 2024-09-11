@@ -56,15 +56,54 @@ var popupController = /** @class */ (function () {
             e.preventDefault();
         });
         // $("[locale-id='hkType']").html(chrome.i18n.getMessage("hkType"));
-        var localeElms = $("[locale-id]");
-        $.each(localeElms, function (i, elm) {
-            var name = $(elm).attr("locale-id");
-            var value = chrome.i18n.getMessage(name);
-            $(elm).html(value);
+        //var localeElms = $("[locale-id]");
+        //$.each(localeElms, (i, elm) => {
+        //    var name = $(elm).attr("locale-id");
+        //    var value = chrome.i18n.getMessage(name);
+        //    $(elm).html(value);
+        //});
+        chrome.storage.sync.get('language', function (data) {
+            if (data.language) {
+                _this.DisplayLang(data.language);
+                return;
+            }
+            var localeElms = $("[locale-id]");
+            $.each(localeElms, function (i, elm) {
+                var name = $(elm).attr("locale-id");
+                var value = chrome.i18n.getMessage(name);
+                $(elm).html(value);
+            });
         });
         // console.log(chrome.i18n.getUILanguage());
         //this.Version = chrome.app.getDetails().version;
         this.Version = chrome.runtime.getManifest().version;
+    };
+    popupController.prototype.ChooseLang = function (language) {
+        console.log(language);
+        chrome.storage.sync.set({ language: language }, function () {
+        });
+        this.DisplayLang(language);
+    };
+    popupController.prototype.DisplayLang = function (language) {
+        chrome.runtime.getPackageDirectoryEntry(function (root) {
+            root.getDirectory("_locales/".concat(language), {}, function (dirEntry) {
+                dirEntry.getFile('messages.json', {}, function (fileEntry) {
+                    fileEntry.file(function (file) {
+                        var reader = new FileReader();
+                        reader.onload = function (event) {
+                            var messages = JSON.parse(event.target.result);
+                            var localeElms = $("[locale-id]");
+                            $.each(localeElms, function (i, elm) {
+                                var name = $(elm).attr("locale-id");
+                                var value = messages[name].message;
+                                $(elm).html(value);
+                            });
+                        };
+                        reader.readAsText(file);
+                    });
+                });
+            });
+        });
     };
     popupController.prototype.OpenTab = function () {
         chrome.tabs.create({
