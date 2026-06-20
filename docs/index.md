@@ -7,7 +7,7 @@ lang: zh-TW
 # JK Japan Keyboard Helper
 # JK ?????
 
-> A free Chrome extension for Japanese text input — no physical Japanese keyboard required.
+> A free Chrome extension for Japanese text input â€” no physical Japanese keyboard required.
 > ?? Chrome ????????????????????????
 
 ---
@@ -23,7 +23,7 @@ lang: zh-TW
 - ?? On-screen **Hiragana** (???) keyboard
 - ?? On-screen **Katakana** (???) keyboard
 - ?? **Input history** (????) for quick reuse
-- ?? All data stored **locally** — no account, no server
+- ?? All data stored **locally** â€” no account, no server
 - ?? Supports **English / ???? / ????**
 
 ---
@@ -64,4 +64,4 @@ lang: zh-TW
 
 ---
 
-<sub>© kimx · Licensed under applicable open-source licenses · Hosted on GitHub Pages</sub>
+<sub>Â© kimx Â· Licensed under applicable open-source licenses Â· Hosted on GitHub Pages</sub>
