@@ -1,6 +1,26 @@
 ﻿   
   html,body {
+            width: 530px;
             min-width: 530px;
+            max-width: 530px;
+            margin: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .card,
+        .card-body,
+        .card-footer {
+            overflow-x: hidden;
         }
    
         .cursor {
